@@ -25,4 +25,5 @@ document.getElementById("ideaBtn").addEventListener("click", () => {
 
 document.getElementById("nameBtn").addEventListener("click", () => {
   document.getElementById("name").textContent = randomFrom(names);
+  console.log("Name button clicked");
 });
