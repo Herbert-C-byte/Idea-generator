@@ -2,22 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Idea Forge</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main>
     <h1>Idea Forge</h1>
+    <p class="subtitle">Generate ideas and names instantly</p>
 
-    <div class="card">
-      <p id="idea">Click to generate an idea</p>
-      <button id="ideaBtn">New Idea</button>
-    </div>
+    <section class="card">
+      <h2>Project Idea</h2>
+      <p id="idea" class="result">Click to generate an idea</p>
+      <button id="ideaBtn" class="btn btn-primary">Generate Idea</button>
+    </section>
 
-    <div class="card">
-      <p id="name">Click to generate a name</p>
-      <button id="nameBtn">New Name</button>
-    </div>
+    <section class="card">
+      <h2>Project Name</h2>
+      <p id="name" class="result">Click to generate a name</p>
+      <button id="nameBtn" class="btn btn-primary">Generate Name</button>
+    </section>
+
+    <footer class="footer">
+      <p>Need both? <button id="bothBtn" class="btn btn-secondary">Generate Both</button></p>
+    </footer>
   </main>
 
   <script src="script.js"></script>

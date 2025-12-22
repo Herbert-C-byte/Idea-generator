@@ -3,7 +3,12 @@ const ideas = [
   "Anonymous micro-journal",
   "Local events discovery app",
   "Minimalist finance tracker",
-  "Random challenge generator"
+  "Random challenge generator",
+  "Smart grocery list optimizer",
+  "Pomodoro music mixer",
+  "Code snippet organizer",
+  "Mindfulness app for gamers",
+  "Local skill exchange platform"
 ];
 
 const names = [
@@ -12,17 +17,47 @@ const names = [
   "Kairos",
   "Atlas",
   "Nova",
-  "Echo"
+  "Echo",
+  "Verve",
+  "Zenith",
+  "Spark",
+  "Helix"
 ];
 
 function randomFrom(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-document.getElementById("ideaBtn").addEventListener("click", () => {
-  document.getElementById("idea").textContent = randomFrom(ideas);
+function updateResult(elementId, value) {
+  const element = document.getElementById(elementId);
+  element.style.opacity = "0.5";
+  
+  setTimeout(() => {
+    element.textContent = value;
+    element.style.opacity = "1";
+  }, 200);
+}
+
+const ideaBtn = document.getElementById("ideaBtn");
+const nameBtn = document.getElementById("nameBtn");
+const bothBtn = document.getElementById("bothBtn");
+
+ideaBtn.addEventListener("click", () => {
+  updateResult("idea", randomFrom(ideas));
 });
 
-document.getElementById("nameBtn").addEventListener("click", () => {
-  document.getElementById("name").textContent = randomFrom(names);
+nameBtn.addEventListener("click", () => {
+  updateResult("name", randomFrom(names));
+});
+
+bothBtn.addEventListener("click", () => {
+  updateResult("idea", randomFrom(ideas));
+  updateResult("name", randomFrom(names));
+});
+
+// Allow Enter key to generate ideas
+document.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    bothBtn.click();
+  }
 });
