@@ -29,6 +29,19 @@
     <footer class="footer">
       <p>Need both? <button id="bothBtn" type="button" class="btn btn-secondary" aria-label="Generate both idea and name">Generate Both</button></p>
     </footer>
+    <section class="card" aria-labelledby="history-heading">
+      <h2 id="history-heading">Saved Ideas</h2>
+      <div class="history-controls">
+        <button id="saveBtn" class="btn btn-primary">Save Current</button>
+        <button id="clearBtn" class="btn btn-secondary">Clear History</button>
+        <button id="exportBtn" class="btn">Export JSON</button>
+        <label class="import-label">
+          Import
+          <input id="importInput" type="file" accept="application/json" />
+        </label>
+      </div>
+      <ul id="historyList" class="history-list" aria-live="polite"></ul>
+    </section>
   </main>
 
   <script src="script.js"></script>
