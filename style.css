@@ -150,10 +150,10 @@ h1 {
 }
 
 footer.footer { margin-top: 1.5rem; color: var(--muted); font-size: 0.92rem; }
-
+/* 
 @media (max-width: 520px) {
   h1 { font-size: 1.8rem; }
   .result { font-size: 1rem; }
   .card { padding: 1rem; }
   .btn { padding: 0.55rem 0.9rem; }
-}
+} */
