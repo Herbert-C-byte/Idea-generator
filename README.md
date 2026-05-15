@@ -4,11 +4,13 @@ Small client-side toy app for quickly generating project ideas and names.
 
 ## Features
 
-- Generate random project ideas and names
-- Generate both with Enter or the "Generate Both" button
-- Save current idea+name to a local history (persisted in `localStorage`)
-- Export and import history as JSON
-- Delete individual history items or clear the whole history
+- Generate random project ideas and names (10 ideas × 10 names = 100 combinations)
+- Press Enter or click "Generate Both" button to generate both instantly
+- Save current idea+name to local history (persisted in `localStorage`)
+- Copy to clipboard — click 📋 on any saved item for quick sharing
+- Export and import history as JSON for backup/restore
+- Delete individual history items or clear all history
+- Fully responsive and keyboard accessible
 
 ## Run
 
