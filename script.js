@@ -25,6 +25,7 @@ const names = [
 ];
 
 const STORAGE_KEY = "ideaGenerator.history";
+let searchTerm = "";
 
 function randomFrom(array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -32,6 +33,11 @@ function randomFrom(array) {
 
 function $(id) {
   return document.getElementById(id);
+}
+
+function animateResult(el) {
+  el.classList.add("bounce");
+  setTimeout(() => el.classList.remove("bounce"), 600);
 }
 
 function loadHistory() {
@@ -52,6 +58,11 @@ function renderHistory() {
   const history = loadHistory();
   const ul = $("historyList");
   ul.innerHTML = "";
+  
+  // Update count
+  const countEl = $("historyCount");
+  if (countEl) countEl.textContent = history.length;
+  
   if (!history.length) {
     const li = document.createElement("li");
     li.textContent = "No saved ideas yet.";
@@ -60,10 +71,19 @@ function renderHistory() {
     return;
   }
 
+  let shown = 0;
   history
     .slice()
     .reverse()
     .forEach((entry, idx) => {
+      const search = searchTerm.toLowerCase();
+      const matches = !search || 
+        entry.idea.toLowerCase().includes(search) || 
+        (entry.name && entry.name.toLowerCase().includes(search));
+      
+      if (!matches) return;
+      shown++;
+
       const li = document.createElement("li");
       li.className = "history-item";
       const ts = new Date(entry.ts).toLocaleString();
@@ -98,6 +118,13 @@ function renderHistory() {
       li.appendChild(del);
       ul.appendChild(li);
     });
+  
+  if (shown === 0 && searchTerm) {
+    const li = document.createElement("li");
+    li.textContent = 'No results for "' + searchTerm + '"';
+    li.className = "history-empty";
+    ul.appendChild(li);
+  }
 }
 
 function saveCurrent() {
@@ -155,15 +182,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $("ideaBtn").addEventListener("click", () => {
     $("idea").textContent = randomFrom(ideas);
+    animateResult($("idea"));
   });
 
   $("nameBtn").addEventListener("click", () => {
     $("name").textContent = randomFrom(names);
+    animateResult($("name"));
   });
 
   $("bothBtn").addEventListener("click", () => {
     $("idea").textContent = randomFrom(ideas);
     $("name").textContent = randomFrom(names);
+    animateResult($("idea"));
+    animateResult($("name"));
   });
 
   $("saveBtn")?.addEventListener("click", saveCurrent);
@@ -175,10 +206,45 @@ document.addEventListener("DOMContentLoaded", () => {
     e.target.value = "";
   });
 
+  // Search input
+  const searchInput = $("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      searchTerm = e.target.value;
+      renderHistory();
+    });
+  }
+
+  // Help modal
+  const helpBtn = $("helpBtn");
+  const helpModal = $("helpModal");
+  const closeHelp = $("closeHelp");
+  if (helpBtn && helpModal) {
+    helpBtn.addEventListener("click", () => {
+      helpModal.style.display = "block";
+    });
+    closeHelp?.addEventListener("click", () => {
+      helpModal.style.display = "none";
+    });
+    window.addEventListener("click", (e) => {
+      if (e.target === helpModal) {
+        helpModal.style.display = "none";
+      }
+    });
+  }
+
   // keyboard: Enter generates both
   document.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-      $("bothBtn").click();
+      // Don't trigger if in search input
+      if (document.activeElement !== searchInput) {
+        $("bothBtn").click();
+      }
+    }
+    // ? for help
+    if (e.key === "?" && !e.ctrlKey && !e.metaKey) {
+      const modal = $("helpModal");
+      if (modal) modal.style.display = modal.style.display === "none" ? "block" : "none";
     }
   });
 });

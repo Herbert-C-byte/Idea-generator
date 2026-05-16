@@ -11,7 +11,10 @@
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <main id="main-content" tabindex="-1">
-    <h1>Idea Forge</h1>
+    <div class="header-top">
+      <h1>Idea Forge</h1>
+      <button id="helpBtn" class="btn btn-icon" title="Keyboard shortcuts (? key)">?</button>
+    </div>
     <p class="subtitle">Press <kbd>Enter</kbd> or click to generate ideas and project names</p>
 
     <section class="card" aria-labelledby="idea-heading">
@@ -30,7 +33,10 @@
       <p>Need both? <button id="bothBtn" type="button" class="btn btn-secondary" aria-label="Generate both idea and name">Generate Both</button></p>
     </footer>
     <section class="card" aria-labelledby="history-heading">
-      <h2 id="history-heading">Saved Ideas</h2>
+      <h2 id="history-heading">
+        Saved Ideas <span class="count-badge"><span id="historyCount">0</span></span>
+      </h2>
+      <input id="searchInput" type="text" placeholder="Search ideas by name or keyword..." class="search-input" />
       <div class="history-controls">
         <button id="saveBtn" class="btn btn-primary">Save Current</button>
         <button id="clearBtn" class="btn btn-secondary">Clear History</button>
@@ -43,6 +49,24 @@
       <ul id="historyList" class="history-list" aria-live="polite"></ul>
     </section>
   </main>
+
+  <div id="helpModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span id="closeHelp" class="modal-close">&times;</span>
+      <h2>⌨️ Keyboard Shortcuts</h2>
+      <ul>
+        <li><kbd>Enter</kbd> — Generate both idea and name</li>
+        <li><kbd>?</kbd> — Toggle this help panel</li>
+      </ul>
+      <h3>💡 Tips</h3>
+      <ul>
+        <li>Click the buttons or use keyboard to generate</li>
+        <li>Click 📋 to copy any saved idea</li>
+        <li>Search saved ideas by typing in the search box</li>
+        <li>Export your ideas as JSON to backup or share</li>
+      </ul>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
