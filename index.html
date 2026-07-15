@@ -30,7 +30,11 @@
     </section>
 
     <footer class="footer">
-      <p>Need both? <button id="bothBtn" type="button" class="btn btn-secondary" aria-label="Generate both idea and name">Generate Both</button></p>
+      <p>
+        Need both?
+        <button id="bothBtn" type="button" class="btn btn-secondary" aria-label="Generate both idea and name">Generate Both</button>
+        <button id="copyBtn" type="button" class="btn btn-secondary" aria-label="Copy the current idea and name">Copy Current</button>
+      </p>
     </footer>
     <section class="card" aria-labelledby="history-heading">
       <h2 id="history-heading">
@@ -67,6 +71,8 @@
       </ul>
     </div>
   </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
 </body>

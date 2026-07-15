@@ -170,6 +170,10 @@ kbd {
 }
 
 footer.footer { margin-top: 1.5rem; color: var(--muted); font-size: 0.92rem; }
+
+.footer .btn + .btn {
+  margin-left: 0.4rem;
+}
 /* 
 @media (max-width: 520px) {
   h1 { font-size: 1.8rem; }
@@ -308,4 +312,26 @@ footer.footer { margin-top: 1.5rem; color: var(--muted); font-size: 0.92rem; }
   border-radius: 3px;
   padding: 0.2rem 0.35rem;
   margin: 0 0.25rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  background: rgba(15, 23, 42, 0.95);
+  color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: all 180ms ease;
+  z-index: 1100;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
 }

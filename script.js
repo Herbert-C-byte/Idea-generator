@@ -40,6 +40,26 @@ function animateResult(el) {
   setTimeout(() => el.classList.remove("bounce"), 600);
 }
 
+function copyCurrent() {
+  const ideaText = $("idea").textContent || "";
+  const nameText = $("name").textContent || "";
+  const text = [ideaText, nameText].filter(Boolean).join(" — ");
+
+  if (!text) return;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = $("toast");
+    if (toast) {
+      toast.textContent = "Copied to clipboard";
+      toast.classList.add("show");
+      clearTimeout(window.copyToastTimeout);
+      window.copyToastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1400);
+    }
+  });
+}
+
 function loadHistory() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -58,11 +78,11 @@ function renderHistory() {
   const history = loadHistory();
   const ul = $("historyList");
   ul.innerHTML = "";
-  
+
   // Update count
   const countEl = $("historyCount");
   if (countEl) countEl.textContent = history.length;
-  
+
   if (!history.length) {
     const li = document.createElement("li");
     li.textContent = "No saved ideas yet.";
@@ -77,10 +97,11 @@ function renderHistory() {
     .reverse()
     .forEach((entry, idx) => {
       const search = searchTerm.toLowerCase();
-      const matches = !search || 
-        entry.idea.toLowerCase().includes(search) || 
+      const matches =
+        !search ||
+        entry.idea.toLowerCase().includes(search) ||
         (entry.name && entry.name.toLowerCase().includes(search));
-      
+
       if (!matches) return;
       shown++;
 
@@ -118,7 +139,7 @@ function renderHistory() {
       li.appendChild(del);
       ul.appendChild(li);
     });
-  
+
   if (shown === 0 && searchTerm) {
     const li = document.createElement("li");
     li.textContent = 'No results for "' + searchTerm + '"';
@@ -200,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $("saveBtn")?.addEventListener("click", saveCurrent);
   $("clearBtn")?.addEventListener("click", clearHistory);
   $("exportBtn")?.addEventListener("click", exportHistory);
+  $("copyBtn")?.addEventListener("click", copyCurrent);
   $("importInput")?.addEventListener("change", (e) => {
     const f = e.target.files && e.target.files[0];
     if (f) importHistoryFile(f);
@@ -244,7 +266,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // ? for help
     if (e.key === "?" && !e.ctrlKey && !e.metaKey) {
       const modal = $("helpModal");
-      if (modal) modal.style.display = modal.style.display === "none" ? "block" : "none";
+      if (modal)
+        modal.style.display = modal.style.display === "none" ? "block" : "none";
     }
   });
 });
